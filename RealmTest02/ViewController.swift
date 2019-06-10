@@ -33,6 +33,8 @@ class ViewController: UIViewController, UITableViewDataSource {
         let realm = try! Realm()
         personArray = realm.objects(Person.self)
         
+        self.title = "Realm DB Test"
+        
         // 데이터가 실제 저장된 디스크 위치 출력(Realm Broswer에서 사용) .../Documents/...
         print(NSHomeDirectory())
         
@@ -95,6 +97,18 @@ class ViewController: UIViewController, UITableViewDataSource {
             // 데이터 업데이트
             personArray = realm.objects(Person.self)
             self.resultTableView.reloadData()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? UITableViewCell, let indexPath = resultTableView.indexPath(for: cell) {
+            let target = personArray![indexPath.row]
+            
+            if let vc = segue.destination as? DetailViewController {
+                vc.name = target.name
+                vc.age = target.age
+                
+            }
         }
     }
 }
