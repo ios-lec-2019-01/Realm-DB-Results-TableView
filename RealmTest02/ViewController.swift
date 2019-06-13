@@ -62,6 +62,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         let realm = try! Realm()
         personArray = realm.objects(Person.self).filter("age > 10")
         print(personArray!)
+        
+        // TableView의 데이터를 새로 갱신
+        resultTableView.reloadData()
 
     }
     
@@ -70,6 +73,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         try! realm.write {
             realm.deleteAll()
         }
+        
+        // TableView의 데이터를 새로 갱신
+        resultTableView.reloadData()
+    
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
